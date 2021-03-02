@@ -1,6 +1,9 @@
 import express from "express";
 //  =const express = require("express");
-
+import morgan from "morgan";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 const app = express();
 
 const PORT = 4000;
@@ -12,20 +15,13 @@ const handleHome = (req, res) => res.send('Hello from home :)');
 
 const handleProfile = (req, res) => res.send("You are on my profile");
 
-// middleware needs 'next'
-const betweenHome = (req, res, next) => {
-  console.log("Between");
-  next();
-};
-
-// middleware's order is important
-
-app.use(betweenHome);   // This is 전역
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(helmet());
+app.use(morgan("dev"));
 
 app.get("/", handleHome);
-
-//  This is 부분적용
-//  => app.get("/", betweenHome, handleHome);
 
 app.get("/profile", handleProfile);
 
