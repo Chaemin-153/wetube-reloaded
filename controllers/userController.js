@@ -1,5 +1,5 @@
 export const join = (req, res) => 
-    es.render("Join", {pageTitle: "Join"});
+    res.render("Join", {pageTitle: "Join"});
 export const login = (req, res) => 
     res.render("Login", {pageTitle: "Login"});
 export const logout = (req, res) => 
@@ -7,8 +7,8 @@ export const logout = (req, res) =>
 export const users = (req, res) => 
     res.render("Users", {pageTitle: "Users"});
 export const userDetail = (req, res) => 
-    res.render("User Detail", {pageTitle: "User Detail"});
+    res.render("userDetail", {pageTitle: "User Detail"});
 export const editProfile = (req, res) => 
-    res.render("Edit Profile", {pageTitle: "Edit Profile"});
+    res.render("editProfile", {pageTitle: "Edit Profile"});
 export const changePassword = (req, res) => 
-    res.render("Chanege Password", {pageTitle: "Change Password"});
+    res.render("changePassword", {pageTitle: "Change Password"});
