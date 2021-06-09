@@ -4,6 +4,7 @@ export const home = async (req, res) => {
     const videos = await Video.find({});
     return res.render("home", { pageTitle: "Home", videos });
 };
+
 export const watch = async (req, res) => {
     const { id } = req.params;
     const video = await Video.findById(id);
@@ -12,6 +13,7 @@ export const watch = async (req, res) => {
     }
     return res.render("watch", { pageTitle: video.title, video });
 };
+
 export const getEdit = async (req, res) => {
     const { id } = req.params;
     const video = await Video.findById(id);
@@ -20,6 +22,7 @@ export const getEdit = async (req, res) => {
     }
     return res.render("edit", { pageTitle: `${video.title}`, video });
 };
+
 export const postEdit = async (req, res) => {
     const { id } = req.params;
     const { title, description, hashtags } = req.body;
@@ -30,7 +33,7 @@ export const postEdit = async (req, res) => {
     await Video.findByIdAndUpdate(id, {
         title,
         description,
-        hashtags: hashtags.split(",").map((word) => word.startsWith('#') ? word : `#${word}`)
+        hashtags: Video.formatHashtags(hashtags)
     });
     return res.redirect(`/videos/${id}`);
 };
@@ -45,7 +48,7 @@ export const postUpload = async (req, res) => {
         await Video.create({
             title,
             description,
-            hashtags,
+            hashtags: Video.formatHashtags(hashtags)
         });
         return res.redirect("/");
     } catch (error) {
@@ -54,4 +57,10 @@ export const postUpload = async (req, res) => {
             errorMessage: error._message
         });
     }
+};
+
+export const deleteVideo = async (req, res) => {
+    const { id } = req.params;
+    await Video.findByIdAndDelete(id);
+    return res.redirect("/");
 };
