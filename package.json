@@ -7,8 +7,8 @@
     "url": "git+https://github.com/Chaemin-153/wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
-    "assets": "webpack --config webpack.config.js"
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
   },
   "author": "ChaeMin",
   "license": "MIT",
